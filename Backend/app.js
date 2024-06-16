@@ -2,20 +2,23 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDb from "./config/connectDB.js";
 import userRoutes from "./routes/usersRoutes.js";
+import postRouter from "./routes/postRoutes.js";
 
+// Load environment variables from .env file
 dotenv.config();
-connectDb();
+connectDb(); // Connect to the database
 
-const app = express();
-const PORT = process.env.PORT;
+const app = express(); // Creating an Express application
+const PORT = process.env.PORT; // Get the port number from environment variables
 
+// middleware
 app.use(express.json()); // parse JSON data in the req.body
 
 // Routes
-app.use("/api/users", userRoutes);
+app.use("/api/users", userRoutes); // Mount user routes at /api/users
+app.use("/api/posts", postRouter); // Mount post routes at /api/posts
+
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server started at port - ${PORT}`);
 });
-
-// # wXS5uEL4P3TaLrbZ
-// # MONGO_URI = mongodb+srv://amanmulla167:wXS5uEL4P3TaLrbZ@cluster0.epagcj9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0

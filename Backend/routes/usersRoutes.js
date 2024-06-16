@@ -4,11 +4,17 @@ import {
   logoutUser,
   signUpUser,
 } from "../controllers/usersController.js";
+import { auth } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
+// Route to signup first time  POST/ api/users/signup
 router.post("/signup", signUpUser);
+
+// Route to login  POST/ api/users/login
 router.post("/login", loginUser);
-router.post("/logout", logoutUser);
+
+// Route to logout  POST/ api/users/logout
+router.post("/logout", auth, logoutUser);
 
 export default router;
