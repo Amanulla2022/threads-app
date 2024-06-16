@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import connectDb from "./config/connectDB.js";
 import userRoutes from "./routes/usersRoutes.js";
 import postRouter from "./routes/postRoutes.js";
@@ -13,6 +14,8 @@ const PORT = process.env.PORT; // Get the port number from environment variables
 
 // middleware
 app.use(express.json()); // parse JSON data in the req.body
+// enables Cross-Origin Resource Sharing (CORS) for all routes, It adds necessary HTTP headers to allow cross-origin requests in the browser
+app.use(cors());
 
 // Routes
 app.use("/api/users", userRoutes); // Mount user routes at /api/users
