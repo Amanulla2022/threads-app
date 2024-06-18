@@ -142,4 +142,14 @@ const updatePostById = async (req, res) => {
     res.status500().json({ message: error.message });
   }
 };
-export { createPost, getPostById, deletePostById, updatePostById };
+
+// function to get all posts
+const getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find().populate("postedBy", "name profilePic");
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+export { createPost, getPostById, deletePostById, updatePostById, getAllPosts };

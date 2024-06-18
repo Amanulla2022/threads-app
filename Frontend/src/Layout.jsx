@@ -10,6 +10,8 @@ import Header from "./components/header/Header";
 import Home from "./pages/Home";
 import Login from "./components/signup_login/Login";
 import SignUp from "./components/signup_login/SignUp";
+import Create from "./pages/Create";
+import User from "./pages/User";
 
 const Layout = () => {
   const location = useLocation();
@@ -25,6 +27,8 @@ const Layout = () => {
         <Route path="/" element={<Home />} /> {/* home */}
         <Route path="/login" element={<Login />} /> {/* login */}
         <Route path="/signup" element={<SignUp />} /> {/* signup */}
+        <Route path="/create" element={<Create />} /> {/* create post*/}
+        <Route path="/user" element={<User />} /> {/* user profile*/}
       </Routes>
     </>
   );

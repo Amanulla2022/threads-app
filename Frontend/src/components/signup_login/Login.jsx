@@ -37,11 +37,20 @@ const Login = () => {
       });
       const data = await response.json(); // parsing response data
       if (response.ok) {
+        localStorage.setItem("token", data.token);
         console.log("User logged in:", data);
-        dispatch(login()); // dispatch login action
+        dispatch(
+          login({
+            _id: data._id,
+            name: data.name,
+            username: data.username,
+            email: data.email,
+            bio: data.bio,
+          })
+        ); // dispatch login action
         toast.success("Login successful", { autoClose: 5000 }); // showing success toast notification
         setTimeout(() => {
-          navigate("/"); // navigating to home page after successful login
+          navigate("/user"); // navigating to home page after successful login
         }, 1000);
       } else {
         console.log("Error:", data.message);

@@ -2,6 +2,7 @@ import express from "express";
 import {
   createPost,
   deletePostById,
+  getAllPosts,
   getPostById,
   updatePostById,
 } from "../controllers/postController.js";
@@ -20,4 +21,7 @@ router.delete("/:id", auth, deletePostById);
 
 // Route to update a post by its ID PUT/ api/posts/:id
 router.put("/:id", auth, updatePostById);
+
+// Route to get all posts
+router.get("/", getAllPosts);
 export default router;

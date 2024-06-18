@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getById,
   loginUser,
   logoutUser,
   signUpUser,
@@ -16,5 +17,7 @@ router.post("/login", loginUser);
 
 // Route to logout  POST/ api/users/logout
 router.post("/logout", auth, logoutUser);
+
+router.get("/:id", getById);
 
 export default router;

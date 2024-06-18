@@ -11,11 +11,13 @@ import { toast } from "react-toastify";
 
 const Header = () => {
   const dispatch = useDispatch(); // redux hook to dispatch actions
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // selecting isAuthenticated from Redux state
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  // selecting isAuthenticated from Redux state
 
   // Function to handle logout
   const handleLogout = () => {
     dispatch(logout()); // Dispatching logout action from authSlice
+    // localStorage.setItem("token", "");
     toast.success("Logout successful!", { autoClose: 5000 }); // showing success toast notification
   };
 
@@ -30,9 +32,13 @@ const Header = () => {
         <Link to="/search">
           <CiSearch className="icons icons-hover" />
         </Link>
-        <IoCreateOutline className="icons icons-hover" />
+        <Link to="/create">
+          <IoCreateOutline className="icons icons-hover" />
+        </Link>
         <CiHeart className="icons icons-hover" />
-        <CiUser className="icons icons-hover" />
+        <Link to="/user">
+          <CiUser className="icons icons-hover" />
+        </Link>
       </nav>
       {isAuthenticated ? (
         <button

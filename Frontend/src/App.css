@@ -4,6 +4,7 @@ body {
   box-sizing: border-box;
 }
 
+/* header */
 .icons {
   @apply text-6xl  p-4;
 }
@@ -17,6 +18,7 @@ body {
   @apply hover:bg-gray-100;
 }
 
+/* login and signup */
 .login_div {
   @apply flex flex-col items-center justify-center h-screen bg-white;
 }
@@ -31,4 +33,22 @@ body {
 
 .login_button {
   @apply w-full bg-black text-white py-2 px-4 rounded-md hover:bg-black;
+}
+
+/* home */
+.posts-icons {
+  @apply text-3xl cursor-pointer hover:bg-gray-100 rounded-full p-1;
+}
+
+/* user profile */
+.user-div {
+  @apply flex mb-4 w-1/2;
+}
+
+.follow {
+  @apply text-sm font-semibold underline;
+}
+
+.small-text {
+  @apply text-sm text-gray-500;
 }
