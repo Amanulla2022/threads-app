@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "./../models/usersModel.js";
 import jwt from "jsonwebtoken";
+import Post from "./../models/postModel.js";
 
 // after logout store those tokens here
 let invalidatedTokens = [];
@@ -103,6 +104,7 @@ const logoutUser = async (req, res) => {
   }
 };
 
+// get user by id function
 const getById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -115,4 +117,61 @@ const getById = async (req, res) => {
   }
 };
 
-export { signUpUser, loginUser, logoutUser, invalidatedTokens, getById };
+// update user details function
+const updateUser = async (req, res) => {
+  try {
+    // Extract user ID from request parameters
+    const { id } = req.params;
+
+    // Extract the data to be updated from request body
+    const { name, username, email, password, profilePic, bio } = req.body;
+
+    // update the data
+    let updateData = { name, username, email, profilePic, bio };
+
+    // if password update hash it and store
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updateData.password = hashedPassword;
+    }
+
+    // find user and update
+    const updatedUser = await User.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+
+    // if not find user
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // json user data display
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getAllPostsByUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const posts = await Post.find({ postedBy: userId }).populate(
+      "postedBy",
+      "name profilePic"
+    );
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export {
+  signUpUser,
+  loginUser,
+  logoutUser,
+  invalidatedTokens,
+  getById,
+  updateUser,
+  getAllPostsByUser,
+};

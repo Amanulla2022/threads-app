@@ -24,4 +24,5 @@ router.put("/:id", auth, updatePostById);
 
 // Route to get all posts
 router.get("/", getAllPosts);
+
 export default router;

@@ -1,9 +1,11 @@
 import express from "express";
 import {
+  getAllPostsByUser,
   getById,
   loginUser,
   logoutUser,
   signUpUser,
+  updateUser,
 } from "../controllers/usersController.js";
 import { auth } from "../middleware/authMiddleware.js";
 
@@ -18,6 +20,12 @@ router.post("/login", loginUser);
 // Route to logout  POST/ api/users/logout
 router.post("/logout", auth, logoutUser);
 
+// Route to get user by id GET/ api/users/:id
 router.get("/:id", getById);
+
+// Route to update user route PUT/ api/users/:id
+router.put("/:id", updateUser);
+
+router.get("/:id/posts", getAllPostsByUser);
 
 export default router;

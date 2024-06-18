@@ -1,11 +1,16 @@
+// import necessary things
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { FaThreads, FaInstagram } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
+import UserInfo from "./UserInfo";
 
 const Profile = () => {
-  const { user } = useSelector((state) => state.auth);
-  const [userData, setUserData] = useState(null);
+  const { user } = useSelector((state) => state.auth); // Get the user from the Redux store
+  const [userData, setUserData] = useState(null); // State to store user data
+  const navigate = useNavigate(); // Get the navigate function from react-router-dom
 
+  // Fetch user data when the component mounts or when the user changes
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -16,7 +21,7 @@ const Profile = () => {
         if (response.ok) {
           setUserData(data);
         } else {
-          toast.error(data.message, { autoClose: 5000 });
+          console.error(data.message);
         }
       } catch (error) {
         console.log(error);
@@ -24,8 +29,9 @@ const Profile = () => {
     };
 
     fetchUserData();
-  }, [user]);
+  }, [user]); // dependency of user
 
+  // Function to format date
   function formatDate(dateString) {
     const daysOfWeek = [
       "Sunday",
@@ -43,51 +49,31 @@ const Profile = () => {
     const dayOfWeek = daysOfWeek[date.getDay()];
     return `${dayOfWeek}, ${year}-${month}-${day}`;
   }
+
+  // Function to handle edit profile button click
+  const handleEditProfile = () => {
+    navigate("/edit-profile");
+  };
+
   return (
+    // ui for user profile
     <>
       {userData ? (
-        <div className="flex flex-col justify-center items-center bg-gray-100 rounded-lg md:mx-40 mx-4 pb-40 pt-10 relative">
-          <div className="user-div justify-between w-2/3 mb-4">
-            <div className="cursor-pointer border-2 p-2 border-green-200 rounded-lg">
-              <p className="font-bold hover:underline">{userData.name}</p>
-              <p className="text-gray-500 hover:underline">
-                @{userData.username}
-              </p>
-            </div>
-            <img
-              src={userData.profilepic}
-              className="w-20 h-20 rounded-full mr-4 hover:bg-gray-500 border-2 border-red-200 cursor-pointer"
-              alt="Profile"
-            />
-          </div>
-          <div className="user-div w-3/4 mb-4">
-            <p className="text-sm">{userData.bio}</p>
-            <p className="small-text">{userData.email}</p>
-          </div>
-
-          <div className="user-div justify-around">
-            <p className="follow">Followers: {userData.followers}</p>
-            <p className="follow">Following: {userData.following}</p>
-          </div>
-          <div className="user-div justify-start">
-            <p className="small-text ">
-              Joined Threads On:{" "}
-              <span className="text-teal-600">
-                {formatDate(userData.createdAt)}
-              </span>
-            </p>
-          </div>
-          <div className="user-div justify-end cursor-pointer">
-            <FaThreads className="icons" />
-            <FaInstagram className="icons" />
-          </div>
-          <button className="login_button absolute bottom-4 left-4 w-32 hover:">
-            Edit Profile
-          </button>
+        <div className="relative">
+          <UserInfo
+            userData={userData}
+            formatDate={formatDate}
+            handleEditProfile={handleEditProfile}
+          />
+          <Link to="/create">
+            <button className="text-green-100 bg-black absolute bottom-4 right-4 text-6xl p-2 rounded-full">
+              <FaPlus />
+            </button>
+          </Link>
         </div>
       ) : (
         <p className="font-bold text-blue-300">
-          Welcome to Threads Socila media app Sign in Please...
+          Welcome to Threads Social Media App. Please sign in.
         </p>
       )}
     </>

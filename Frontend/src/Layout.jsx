@@ -12,6 +12,7 @@ import Login from "./components/signup_login/Login";
 import SignUp from "./components/signup_login/SignUp";
 import Create from "./pages/Create";
 import User from "./pages/User";
+import EditUser from "./pages/EditUser";
 
 const Layout = () => {
   const location = useLocation();
@@ -27,6 +28,8 @@ const Layout = () => {
         <Route path="/" element={<Home />} /> {/* home */}
         <Route path="/login" element={<Login />} /> {/* login */}
         <Route path="/signup" element={<SignUp />} /> {/* signup */}
+        <Route path="/edit-profile" element={<EditUser />} />
+        {/* edit profile */}
         <Route path="/create" element={<Create />} /> {/* create post*/}
         <Route path="/user" element={<User />} /> {/* user profile*/}
       </Routes>

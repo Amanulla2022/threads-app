@@ -152,4 +152,5 @@ const getAllPosts = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 export { createPost, getPostById, deletePostById, updatePostById, getAllPosts };
