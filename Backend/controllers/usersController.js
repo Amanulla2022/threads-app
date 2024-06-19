@@ -166,6 +166,28 @@ const getAllPostsByUser = async (req, res) => {
   }
 };
 
+// get all likes posts
+const likedPosts = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    // Find posts where the likes array contains the userId
+    const likedPosts = await Post.find({ likes: userId }).populate(
+      "postedBy",
+      "name profilePic"
+    );
+    // If no posts are liked by the user
+    if (!likedPosts.length) {
+      return res
+        .status(404)
+        .json({ message: "No liked posts found for this user" });
+    }
+
+    res.status(200).json(likedPosts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export {
   signUpUser,
   loginUser,
@@ -174,4 +196,5 @@ export {
   getById,
   updateUser,
   getAllPostsByUser,
+  likedPosts,
 };

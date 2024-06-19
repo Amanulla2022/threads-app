@@ -35,7 +35,9 @@ const Header = () => {
         <Link to="/create">
           <IoCreateOutline className="icons icons-hover" />
         </Link>
-        <CiHeart className="icons icons-hover" />
+        <Link to="/liked/:userId">
+          <CiHeart className="icons icons-hover" />
+        </Link>
         <Link to="/user">
           <CiUser className="icons icons-hover" />
         </Link>

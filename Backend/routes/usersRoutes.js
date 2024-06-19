@@ -2,6 +2,7 @@ import express from "express";
 import {
   getAllPostsByUser,
   getById,
+  likedPosts,
   loginUser,
   logoutUser,
   signUpUser,
@@ -28,4 +29,6 @@ router.put("/:id", updateUser);
 
 router.get("/:id/posts", getAllPostsByUser);
 
+// Route to get liked posts by user
+router.get("/liked/:id", auth, likedPosts);
 export default router;

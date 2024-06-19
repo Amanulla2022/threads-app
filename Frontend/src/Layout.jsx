@@ -13,6 +13,7 @@ import SignUp from "./components/signup_login/SignUp";
 import Create from "./pages/Create";
 import User from "./pages/User";
 import EditUser from "./pages/EditUser";
+import LikedPosts from "./pages/LikedPosts";
 
 const Layout = () => {
   const location = useLocation();
@@ -32,6 +33,7 @@ const Layout = () => {
         {/* edit profile */}
         <Route path="/create" element={<Create />} /> {/* create post*/}
         <Route path="/user" element={<User />} /> {/* user profile*/}
+        <Route path="/liked/:userId" element={<LikedPosts />} />
       </Routes>
     </>
   );

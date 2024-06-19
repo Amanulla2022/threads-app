@@ -6,15 +6,29 @@ import { BiRepost } from "react-icons/bi";
 import { PiShareFatThin } from "react-icons/pi";
 import { formatDistanceToNow } from "date-fns";
 
-const PostList = () => {
+const LikedPosts = () => {
+  const userId = localStorage.getItem("userId");
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  console.log(userId);
   useEffect(() => {
-    const fetchAllPosts = async () => {
+    const fetchLikedPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/posts/");
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `http://localhost:8000/api/users/liked/${userId}`,
+
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log(userId);
+        console.log(response.data);
         setPosts(response.data);
       } catch (error) {
         setError(error.message);
@@ -23,41 +37,12 @@ const PostList = () => {
       }
     };
 
-    fetchAllPosts();
-  }, []);
-
-  const handleLike = async (postId) => {
-    try {
-      const token = localStorage.getItem("token");
-
-      console.log(postId);
-      const response = await axios.put(
-        `http://localhost:8000/api/posts/like/${postId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const updatedLikes = response.data.likes.length;
-      setPosts((prevPosts) => {
-        return prevPosts.map((post) => {
-          if (post._id === postId) {
-            return { ...post, likes: updatedLikes };
-          } else {
-            return post;
-          }
-        });
-      });
-    } catch (error) {
-      console.error("Error liking the post:", error.message);
-    }
-  };
+    fetchLikedPosts();
+  }, [userId]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
+
   return (
     <div className="flex justify-center items-center flex-col gap-6 m-4 w-full">
       {posts.map((post) => (
@@ -78,18 +63,12 @@ const PostList = () => {
             </div>
             <div className="mb-4">
               <h2>{post.description}</h2>
-              <img src={post.image} alt="post image" />
+              {post.image && <img src={post.image} alt="post image" />}
             </div>
             <div className="flex gap-4 justify-start items-center">
-              <div
-                onClick={() => handleLike(post._id)}
-                className="cursor-pointer relative"
-              >
-                <CiHeart className="posts-icons" />
-                <span className="absolute top-3 -right-1  text-pink-600 rounded-full p-0.5 text-sm">
-                  {post.likes ? post.likes.length : ""}
-                </span>
-              </div>
+              <CiHeart />
+              <span>{post.likes.length}</span>
+
               <TfiCommentsSmiley className="posts-icons" />
               <BiRepost className="posts-icons" />
               <PiShareFatThin className="posts-icons" />
@@ -98,8 +77,9 @@ const PostList = () => {
           </div>
         </div>
       ))}
+      {posts.length === 0 && <p>Please login and like posts</p>}
     </div>
   );
 };
 
-export default PostList;
+export default LikedPosts;

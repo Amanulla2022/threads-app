@@ -4,6 +4,7 @@ import {
   deletePostById,
   getAllPosts,
   getPostById,
+  likeApost,
   updatePostById,
 } from "../controllers/postController.js";
 import { auth } from "../middleware/authMiddleware.js";
@@ -24,5 +25,8 @@ router.put("/:id", auth, updatePostById);
 
 // Route to get all posts
 router.get("/", getAllPosts);
+
+// Route to like a post by id
+router.put("/like/:id", auth, likeApost);
 
 export default router;
