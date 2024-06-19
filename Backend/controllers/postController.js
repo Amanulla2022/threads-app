@@ -35,6 +35,13 @@ const createPost = async (req, res) => {
       });
     }
 
+    // Validate image format
+    if (image && !/^data:image\/(jpeg|png|gif|bmp);base64,/.test(image)) {
+      return res.status(400).json({
+        message: "Invalid image format. Should be Base64 encoded string.",
+      });
+    }
+
     // creating a post
     const newPost = new Post({
       postedBy: req.user._id,

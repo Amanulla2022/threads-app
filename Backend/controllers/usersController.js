@@ -145,6 +145,16 @@ const updateUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Validate image format
+    if (
+      profilePic &&
+      !/^data:image\/(jpeg|png|gif|bmp);base64,/.test(profilePic)
+    ) {
+      return res.status(400).json({
+        message: "Invalid image format. Should be Base64 encoded string.",
+      });
+    }
+
     // json user data display
     res.status(200).json(updatedUser);
   } catch (error) {

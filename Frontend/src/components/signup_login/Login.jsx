@@ -38,7 +38,7 @@ const Login = () => {
       const data = await response.json(); // parsing response data
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("userId", data._id);
+        // localStorage.setItem("userId", data._id);
         console.log("User logged in:", data);
         dispatch(
           login({

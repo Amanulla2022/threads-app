@@ -12,6 +12,7 @@ const EditUser = () => {
     bio: "",
     profilePic: "",
   }); // Initializing form data state with empty values
+
   const navigate = useNavigate(); // Initializing the navigate function from react-router-dom
 
   // Fetch the user's data from the backend when the component mounts or when the user changes
@@ -69,6 +70,20 @@ const EditUser = () => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFormData((prevData) => ({
+        ...prevData,
+        profilePic: reader.result,
+      }));
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     // ui of edit user page
     <div className="flex flex-col items-center bg-gray-100 rounded-lg md:mx-40 mx-4 pb-40 pt-10">
@@ -77,6 +92,7 @@ const EditUser = () => {
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        handleImageChange={handleImageChange}
       />
     </div>
   );

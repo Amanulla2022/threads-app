@@ -17,7 +17,6 @@ const Header = () => {
   // Function to handle logout
   const handleLogout = () => {
     dispatch(logout()); // Dispatching logout action from authSlice
-    // localStorage.setItem("token", "");
     toast.success("Logout successful!", { autoClose: 5000 }); // showing success toast notification
   };
 
