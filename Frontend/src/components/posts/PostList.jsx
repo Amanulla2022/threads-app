@@ -33,7 +33,7 @@ const PostList = () => {
 
       console.log(postId);
       const response = await axios.put(
-        `http://localhost:8000/api/posts/like/${postId}`,
+        `${API_BASE_URL}/api/posts/like/${postId}`,
         {},
         {
           headers: {
