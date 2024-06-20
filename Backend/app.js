@@ -10,7 +10,7 @@ dotenv.config();
 connectDb(); // Connect to the database
 
 const app = express(); // Creating an Express application
-const PORT = process.env.PORT; // Get the port number from environment variables
+const PORT = process.env.PORT || 8000; // Get the port number from environment variables
 
 // middleware
 app.use(express.json()); // parse JSON data in the req.body
