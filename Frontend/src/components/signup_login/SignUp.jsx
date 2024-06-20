@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import bgImage from "../../images/bg-threads.avif";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_BASE_URL } from "../../config";
 
 const SignUp = () => {
   // initially sets all fields to empty strings
@@ -28,7 +29,7 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
     try {
-      const response = await fetch("http://localhost:8000/api/users/signup", {
+      const response = await fetch(`${API_BASE_URL}/api/users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

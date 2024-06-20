@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import UserInfo from "./UserInfo";
+import { API_BASE_URL } from "../../config";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth); // Get the user from the Redux store
@@ -14,9 +15,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/users/${user._id}`
-        );
+        const response = await fetch(`${API_BASE_URL}/api/users/${user._id}`);
         const data = await response.json();
         if (response.ok) {
           setUserData(data);

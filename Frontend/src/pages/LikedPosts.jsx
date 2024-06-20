@@ -6,6 +6,7 @@ import { BiRepost } from "react-icons/bi";
 import { PiShareFatThin } from "react-icons/pi";
 import { formatDistanceToNow } from "date-fns";
 import { useSelector } from "react-redux";
+import { API_BASE_URL } from "../config";
 
 const LikedPosts = () => {
   const { user } = useSelector((state) => state.auth); // get user from Redux state
@@ -18,7 +19,7 @@ const LikedPosts = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://localhost:8000/api/users/liked/${user._id}`,
+          `${API_BASE_URL}/api/users/liked/${user._id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

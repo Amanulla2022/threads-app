@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config";
 
 const AddPost = () => {
   const [description, setDescription] = useState("");
@@ -29,7 +30,7 @@ const AddPost = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:8000/api/posts/create",
+        `${API_BASE_URL}/api/posts/create`,
         { description, image },
         {
           headers: {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { API_BASE_URL } from "../../config";
 
 const UserPosts = ({ userId }) => {
   const [posts, setPosts] = useState([]); // State to store the user's posts
@@ -31,7 +32,7 @@ const UserPosts = ({ userId }) => {
   const deletePost = async (postId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:8000/api/posts/${postId}`,
+        `${API_BASE_URL}/api/posts/${postId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

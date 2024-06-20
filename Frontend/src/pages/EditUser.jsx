@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import UserForm from "../components/user/UserForm";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 const EditUser = () => {
   const { user } = useSelector((state) => state.auth); // get user from Redux state
@@ -19,9 +20,7 @@ const EditUser = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/users/${user._id}`
-        );
+        const response = await fetch(`${API_BASE_URL}/api/users/${user._id}`);
         const data = await response.json();
         if (response.ok) {
           setFormData(data);

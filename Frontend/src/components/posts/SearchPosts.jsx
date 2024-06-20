@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 
 const SearchPosts = () => {
   const [query, setQuery] = useState("");
@@ -8,7 +9,7 @@ const SearchPosts = () => {
   const searchUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/users/search?query=${query}`
+        `${API_BASE_URL}/api/users/search?query=${query}`
       );
       setUsers(response.data);
     } catch (error) {

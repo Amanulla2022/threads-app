@@ -5,6 +5,7 @@ import { TfiCommentsSmiley } from "react-icons/tfi";
 import { BiRepost } from "react-icons/bi";
 import { PiShareFatThin } from "react-icons/pi";
 import { formatDistanceToNow } from "date-fns";
+import { API_BASE_URL } from "../../config";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -14,7 +15,7 @@ const PostList = () => {
   useEffect(() => {
     const fetchAllPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/posts/");
+        const response = await axios.get(`${API_BASE_URL}/api/posts/`);
         setPosts(response.data);
       } catch (error) {
         setError(error.message);

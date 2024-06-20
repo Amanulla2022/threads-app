@@ -5,6 +5,7 @@ import bgImage from "../../images/bg-threads.avif";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { login } from "../../../redux/authSlice";
+import { API_BASE_URL } from "../../config";
 
 const Login = () => {
   // initially sets all fields to empty strings
@@ -28,7 +29,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
     try {
-      const response = await fetch("http://localhost:8000/api/users/login", {
+      const response = await fetch(`${API_BASE_URL}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
