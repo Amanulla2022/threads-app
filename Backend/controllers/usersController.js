@@ -163,6 +163,7 @@ const updateUser = async (req, res) => {
   }
 };
 
+// get all post by user function
 const getAllPostsByUser = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -198,6 +199,24 @@ const likedPosts = async (req, res) => {
   }
 };
 
+// search Users
+const searchUser = async (req, res) => {
+  const query = req.query.query;
+  try {
+    const users = await User.find({
+      $or: [
+        { username: { $regex: query, $options: "i" } },
+        { name: { $regex: query, $options: "i" } },
+        { email: { $regex: query, $options: "i" } },
+      ],
+    });
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export {
   signUpUser,
   loginUser,
@@ -207,4 +226,5 @@ export {
   updateUser,
   getAllPostsByUser,
   likedPosts,
+  searchUser,
 };

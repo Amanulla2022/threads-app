@@ -5,6 +5,7 @@ import {
   likedPosts,
   loginUser,
   logoutUser,
+  searchUser,
   signUpUser,
   updateUser,
 } from "../controllers/usersController.js";
@@ -12,6 +13,7 @@ import { auth } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
+router.get("/search", searchUser);
 // Route to signup first time  POST/ api/users/signup
 router.post("/signup", signUpUser);
 
@@ -31,4 +33,5 @@ router.get("/:id/posts", getAllPostsByUser);
 
 // Route to get liked posts by user
 router.get("/liked/:id", auth, likedPosts);
+
 export default router;

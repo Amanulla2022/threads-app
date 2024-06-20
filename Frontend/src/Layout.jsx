@@ -14,9 +14,13 @@ import Create from "./pages/Create";
 import User from "./pages/User";
 import EditUser from "./pages/EditUser";
 import LikedPosts from "./pages/LikedPosts";
+import { useSelector } from "react-redux";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Search from "./pages/Search";
 
 const Layout = () => {
   const location = useLocation();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const hideHeaderPaths = ["/login", "/signup"]; // Array of paths where the header component should be hidden
   const shouldHideHeader = hideHeaderPaths.includes(location.pathname); // check if the header component should be hidden based on the current path
@@ -29,11 +33,42 @@ const Layout = () => {
         <Route path="/" element={<Home />} /> {/* home */}
         <Route path="/login" element={<Login />} /> {/* login */}
         <Route path="/signup" element={<SignUp />} /> {/* signup */}
-        <Route path="/edit-profile" element={<EditUser />} />
+        <Route
+          path="/edit-profile"
+          element={
+            <ProtectedRoute>
+              <EditUser />
+            </ProtectedRoute>
+          }
+        />
         {/* edit profile */}
-        <Route path="/create" element={<Create />} /> {/* create post*/}
-        <Route path="/user" element={<User />} /> {/* user profile*/}
-        <Route path="/liked/:userId" element={<LikedPosts />} />
+        <Route
+          path="/create"
+          element={
+            <ProtectedRoute>
+              <Create />
+            </ProtectedRoute>
+          }
+        />{" "}
+        {/* create post*/}
+        <Route
+          path="/user"
+          element={
+            <ProtectedRoute>
+              <User />
+            </ProtectedRoute>
+          }
+        />{" "}
+        {/* user profile*/}
+        <Route
+          path="/liked/:userId"
+          element={
+            <ProtectedRoute>
+              <LikedPosts />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/search" element={<Search />} /> {/* search posts */}
       </Routes>
     </>
   );
