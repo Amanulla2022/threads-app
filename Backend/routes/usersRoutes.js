@@ -13,6 +13,9 @@ import { auth } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
+// Route to login  POST/ api/users/login
+router.post("/login", loginUser);
+
 router.get("/search", searchUser);
 // Route to signup first time  POST/ api/users/signup
 router.post("/signup", signUpUser);

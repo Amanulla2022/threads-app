@@ -12,7 +12,7 @@ const UserPosts = ({ userId }) => {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/users/${user._id}/posts`
+          `${API_BASE_URL}/api/users/${user._id}/posts`
         );
         const data = await response.json();
         if (response.ok) {

@@ -28,6 +28,10 @@ const SignUp = () => {
   // Function to handle signup submission
   const handleSignUp = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
+    if (!inputs.name || !inputs.username || !inputs.email || !inputs.password) {
+      toast.error("Please fill in all fields", { autoClose: 5000 });
+      return;
+    }
     try {
       const response = await fetch(`${API_BASE_URL}/api/users/signup`, {
         method: "POST",

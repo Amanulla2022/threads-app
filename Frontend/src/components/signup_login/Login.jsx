@@ -28,6 +28,11 @@ const Login = () => {
   // Function to handle login submission
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
+
+    if (!inputs.emailORusename || !inputs.password) {
+      toast.error("Please fill in all fields", { autoClose: 5000 });
+      return;
+    }
     try {
       const response = await fetch(`${API_BASE_URL}/api/users/login`, {
         method: "POST",
